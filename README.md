@@ -1,0 +1,1 @@
+# ChoreSync_Frontend
