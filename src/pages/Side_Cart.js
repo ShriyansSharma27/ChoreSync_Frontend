@@ -20,7 +20,7 @@ export default function SideCart() {
                         grab_serv.map((selec, index) => (
                             <div className="g-4" key={index}>
                                 <div key={index} className="card mb-4 border-dark">
-                                    <img src={selec.image_url || "https://rb.gy/f9yl67"} className="card-img-top border-bottom border-dark" />
+                                    <img src={selec.image_url || "https://rb.gy/f9yl67"} className="card-img-top border-bottom border-dark" alt={"Product"}/>
                                     <div className="card-body">
                                         <h5 className="card-title">{selec.service_name} </h5>
                                         <p className="card-text">{selec.service_details} </p>
