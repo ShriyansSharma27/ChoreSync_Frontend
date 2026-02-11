@@ -1,4 +1,4 @@
-# 🧹 ChoreSync — Frontend
+# ChoreSync — Frontend
 
 ChoreSync is a full-stack services marketplace where customers can browse, book, and securely pay for services, while providers can manage and publish their offerings through a dedicated dashboard.
 
@@ -6,9 +6,9 @@ This repository contains the React frontend application.
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👤 Customer
+### Customer
 - Browse available services
 - Select date & time before adding to cart
 - Off-canvas side cart (persisted with localStorage)
@@ -25,7 +25,7 @@ This repository contains the React frontend application.
 
 ---
 
-## 🧱 Tech Stack
+## Tech Stack
 
 - React
 - Redux Toolkit (state management + persistence)
@@ -36,7 +36,7 @@ This repository contains the React frontend application.
 
 ---
 
-## 🧠 Architecture Overview
+## Architecture Overview
 
 - Authentication handled using Clerk
 - Backend verification via Bearer token (JWT)
@@ -46,7 +46,7 @@ This repository contains the React frontend application.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 src/
@@ -72,7 +72,7 @@ src/
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file in the project root:
 
@@ -85,7 +85,7 @@ Note: All environment variables must start with `REACT_APP_`.
 
 ---
 
-## 🛠 Installation
+## Installation
 
 Install dependencies:
 
@@ -115,7 +115,7 @@ npm run build
 
 ---
 
-## 🔐 Authentication Flow
+## Authentication Flow
 
 - `<SignedOut>` → Shows Login button
 - `<SignedIn>` → Shows Clerk UserButton
@@ -128,7 +128,7 @@ Authorization: Bearer <Clerk JWT>
 
 ---
 
-## 🛒 Cart & Checkout Flow
+## Cart & Checkout Flow
 
 1. User selects service and chooses date/time
 2. Service stored in Redux cart
@@ -142,7 +142,7 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 🔌 Backend API Endpoints Used
+## Backend API Endpoints Used
 
 ### Customer
 - POST `/auth/customer/signup`
@@ -163,7 +163,7 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 🎨 UI Highlights
+## UI Highlights
 
 - Bootstrap offcanvas cart
 - Popovers for invalid form actions
@@ -173,7 +173,7 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 🧪 Edge Cases Handled
+## Edge Cases Handled
 
 - Prevent duplicate cart entries
 - Prevent booking past dates
@@ -183,7 +183,7 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 📈 Resume Highlights
+## Resume Highlights
 
 - Implemented role-based access control
 - Integrated Stripe payment flow
@@ -193,7 +193,7 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 - Service search & filtering
 - Pagination
@@ -204,6 +204,5 @@ Cart state is persisted using localStorage.
 
 ---
 
-## 📜 License
-
-For educational and portfolio use.
+## Author
+- Shriyans Sharma
