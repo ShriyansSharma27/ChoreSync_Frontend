@@ -1,5 +1,6 @@
 import Nav from '../components/Nav';
 import { EmptyServiceCard } from '../components/Cards';
+import styles_home from '../styles/Home.module.css';
 import styles_page from '../styles/Page.module.css';
 import { useState, useEffect, createContext, useCallback } from "react";
 import {useDispatch, useSelector} from 'react-redux';
@@ -140,7 +141,7 @@ export default function Home() {
                                         </div>
                                         <div className="card-body">
                                             <h5 className="card-title">{service.service_name} </h5>
-                                            <p className="card-text">{service.service_details} </p>
+                                            <p className={styles_home.descriptionText}>{service.service_details} </p>
                                             <p className="card-text"> By {providers[index]?.first_name} {providers[index]?.last_name}</p>
                                             <p className="card-text fw-bold"> ${service.service_price} </p>
                                             <input 

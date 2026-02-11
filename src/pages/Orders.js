@@ -1,5 +1,6 @@
 import Nav from "../components/Nav";
 import SideCart from "./Side_Cart";
+import styles_home from '../styles/Home.module.css';
 import styles from '../styles/Page.module.css';
 import { useState, useEffect } from "react";
 import styles_order from "../styles/Orders.module.css";
@@ -59,7 +60,7 @@ export default function Orders() {
                                             <img src={service.image_url || "https://rb.gy/f9yl67"} className="card-img-top border-bottom border-dark" alt={service.service_name || "Service image"}/>
                                             <div className="card-body">
                                                 <h5 className="card-title">{service.service_name} </h5>
-                                                <p className="card-text">{service.service_details} </p>
+                                                <p className={styles_home.descriptionText}>{service.service_details} </p>
                                                 <p className="card-text fw-bold"> ${service.service_price} </p>
                                                 <p className="card-text">Date: {new Date(service.date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Toronto' })} </p>
                                                 <p className="card-text">Time: {new Date(service.time).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })} </p>
