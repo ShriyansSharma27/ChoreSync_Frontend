@@ -172,7 +172,6 @@ Cart state is persisted using localStorage.
 - Stripe webhooks for stronger payment verification
 - Unit testing (Jest / React Testing Library)
 - API abstraction layer
-- Deployment to Vercel / Netlify
 
 ---
 
