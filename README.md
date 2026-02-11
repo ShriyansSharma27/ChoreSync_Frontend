@@ -44,32 +44,6 @@ ChoreSync is a full-stack services marketplace where customers can browse, book,
 
 ---
 
-## Project Structure
-
-```
-src/
-│
-├── components/
-│   ├── Nav.jsx
-│   ├── Side_Cart.jsx
-│   ├── ProtectedProvider.jsx
-│
-├── pages/
-│   ├── Home.jsx
-│   ├── Cart.jsx
-│   ├── Orders.jsx
-│   ├── ProvLogin.jsx
-│   ├── ProvPanel.jsx
-│
-├── redux/
-│   └── GlobalStates.js
-│
-└── hooks/
-    └── useSyncUser.js
-```
-
----
-
 ## Environment Variables
 
 Create a `.env` file in the project root:
