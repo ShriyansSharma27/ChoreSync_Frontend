@@ -2,8 +2,6 @@
 
 ChoreSync is a full-stack services marketplace where customers can browse, book, and securely pay for services, while providers can manage and publish their offerings through a dedicated dashboard.
 
-This repository contains the React frontend application.
-
 ---
 
 ## Features
