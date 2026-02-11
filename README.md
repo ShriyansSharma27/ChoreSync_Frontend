@@ -107,7 +107,7 @@ http://localhost:3000
 
 ---
 
-## 🏗 Production Build
+## Production Build
 
 ```
 npm run build
