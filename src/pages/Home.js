@@ -1,7 +1,7 @@
 import Nav from '../components/Nav';
 import { EmptyServiceCard } from '../components/Cards';
 import styles_page from '../styles/Page.module.css';
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useCallback } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { add } from '../redux/GlobalStates';
 import axios from "axios";
@@ -91,43 +91,34 @@ export default function Home() {
         }
     }
 
-    async function fetchServices() {
+    const fetchServices = useCallback(async() => {
         try {
             // Fetch all services
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/provider/get_services`);
             const fetch_services = response.data.data;
-    
-            // Array of promises for each provider request
-            const providerPromises = fetch_services.map(service => 
-                axios.get(`${process.env.REACT_APP_API_URL}/api/provider/${service.provider_id}/get_provider`)
-            );
-    
-            // Wait for ALL provider requests to finish at once
-            const providerResponses = await Promise.all(providerPromises);
-    
-            // Map the responses to the list
-            const tmp_prov_list = providerResponses.map(res => ({
-                first_name: res.data.details.first_name,
-                last_name: res.data.details.last_name
-            }));
-    
-            setProviders(tmp_prov_list);
+            console.log(fetch_services);
+
+            for(let i = 0; i < fetch_services.length; i++) {
+                const provDetails = await axios.get(`${process.env.REACT_APP_API_URL}/api/provider/${fetch_services[i].provider_id}/get_provider`);
+                setProviders(prevProviders => [
+                    ...prevProviders, 
+                    {
+                        first_name: provDetails.data.details.first_name,
+                        last_name: provDetails.data.details.last_name
+                    }
+                ]);
+            }
+
             setServices(fetch_services);
         }
         catch (err) {
             console.error("Error fetching data:", err);
         }
-    }
+    }, []);
 
     useEffect(() => {
         fetchServices();
-
-        const interv = setInterval(() => {
-            fetchServices();
-        }, 5000);
-
-        return () => clearInterval(interv);
-    }, [])
+    }, [fetchServices]);
 
 
     return (

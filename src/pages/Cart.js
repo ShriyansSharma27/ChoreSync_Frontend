@@ -5,7 +5,7 @@ import SideCart from "./Side_Cart";
 import axios from 'axios';
 import { useSelector} from 'react-redux';
 import { useDispatch } from "react-redux";
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import { remove, clear, purchased } from "../redux/GlobalStates";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 
@@ -13,6 +13,7 @@ export default function Cart() {
     const grab_serv = useSelector((state) => state.cartItems.value);
     const dispatch = useDispatch();
     const {user, isLoaded} = useUser();
+    const { getToken }  = useAuth();
 
     console.log(grab_serv);
 
@@ -28,7 +29,7 @@ export default function Cart() {
     // Initialize Stripe session and record the purchase in the database
     async function handleCheckOut() {
         try {
-            console.log(grab_serv);
+            const token = await getToken();
             if(user && isLoaded) {
                 const email_id = user.primaryEmailAddress.emailAddress;
                 const checkoutTotal = calculate();
@@ -36,6 +37,7 @@ export default function Cart() {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         amount: checkoutTotal * 100,
@@ -50,6 +52,11 @@ export default function Cart() {
                     await axios.post(`${process.env.REACT_APP_API_URL}/api/customer/purchase`, {
                         email: email_id,
                         services: grab_serv
+                    }, {
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                        }
                     });
 
                     dispatch(purchased(true));

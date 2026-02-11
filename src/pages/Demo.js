@@ -9,10 +9,10 @@ const DemoLoginButton = () => {
         if (!isLoaded) return;
         try {
             const result = await signIn.create({
-                identifier: "johndoe@gmail.com",
-                password: "john27",
+                identifier: "aryanmetha109@gmail.com",
+                password: "Sanupa@5477",
             });
-
+            console.log(result);
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId });
                 window.location.href = "/";
@@ -26,13 +26,13 @@ const DemoLoginButton = () => {
         if (!isLoaded) return;
         try {
             const result = await signIn.create({
-                identifier: "janedoe@gmail.com",
-                password: "jane27",
+                identifier: "jessicaskyline131@gmail.com",
+                password: "Sanupa@5477",
             });
 
             if (result.status === "complete") {
                 await setActive({ session: result.createdSessionId });
-                window.location.href = "/";
+                window.location.href = "/panel";
             }
         } catch (err) {
             console.error("Demo login failed", err);
@@ -43,7 +43,7 @@ const DemoLoginButton = () => {
         <div className={styles_page.page_background}>
             <Nav />
             
-            <div className="d-flex justify-content-center w-100">
+            <div className="d-flex justify-content-center w-100 gap-3">
                 <button 
                     onClick={handleDemoCustomerLogin}
                     className="btn btn-dark shadow-sm fw-bold px-4 py-2"

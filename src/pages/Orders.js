@@ -4,21 +4,26 @@ import styles from '../styles/Page.module.css';
 import { useState, useEffect } from "react";
 import styles_order from "../styles/Orders.module.css";
 import axios from 'axios';
-import { useUser } from "@clerk/clerk-react";
+import { useUser, useAuth } from "@clerk/clerk-react";
 
 export default function Orders() {
     const { user, isLoaded } = useUser();
+    const { getToken } = useAuth();
     const [bought, setBought] = useState([]);
 
     // Re-fetch data whenever the user's authentication state changes
     useEffect(() => {
         // Fetch user-specific purchase history from the database
         async function fetchBought() {
+            const token = await getToken();
             try {
                 let fetch_services = await axios.post(`${process.env.REACT_APP_API_URL}/api/customer/get_services`, {
                     'email': user.primaryEmailAddress.emailAddress
+                }, {
+                    headers:{
+                    Authorization: `Bearer ${token}`
+                    }
                 });
-                console.log(fetch_services);
                 setBought(fetch_services.data.data);
             }
             catch(err) {
@@ -29,7 +34,7 @@ export default function Orders() {
         if(isLoaded && user) {
             fetchBought(user.primaryEmailAddress.emailAddress);
         }
-    }, [isLoaded, user])
+    }, [isLoaded, user, getToken])
 
     return (
         <div className={styles.page_background}>
@@ -56,8 +61,8 @@ export default function Orders() {
                                                 <h5 className="card-title">{service.service_name} </h5>
                                                 <p className="card-text">{service.service_details} </p>
                                                 <p className="card-text fw-bold"> ${service.service_price} </p>
-                                                <p className="card-text">Date: {service.date} </p>
-                                                <p className="card-text">Time: {service.time} </p>
+                                                <p className="card-text">Date: {new Date(service.date).toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/Toronto' })} </p>
+                                                <p className="card-text">Time: {new Date(service.time).toLocaleTimeString('en-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })} </p>
                                             </div>
                                         </div>
                                     </div>

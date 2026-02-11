@@ -7,8 +7,9 @@ import ProvPanel from './providers/ProvPanel';
 import ProvLogin from './providers/ProvLogin';
 import FAQ from './pages/Faq';
 import Demo from './pages/Demo';
+import { useSyncUser } from './hooks/Sync_Login';
 import { ProtectedProvider } from './components/ProvCheck';
-import { ClerkProvider, SignedOut} from '@clerk/clerk-react';
+import { ClerkProvider } from '@clerk/clerk-react';
 
 const PUBLISHABLE_KEY = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
@@ -18,6 +19,8 @@ if(!PUBLISHABLE_KEY) {
 }
 
 function Content() {
+  useSyncUser();
+  
   return (
       <Routes>
         <Route path="/" element={<Home />} />
@@ -33,9 +36,6 @@ function Content() {
               <ProtectedProvider>
                 <ProvPanel />
               </ProtectedProvider>
-              <SignedOut>
-                <ProvLogin /> 
-              </SignedOut>
             </>
           } 
         />

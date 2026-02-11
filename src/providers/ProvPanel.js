@@ -1,7 +1,7 @@
 import styles_page from '../styles/Page.module.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useUser, SignedIn, UserButton } from '@clerk/clerk-react';
+import { useUser, SignedIn, UserButton, useAuth } from '@clerk/clerk-react';
 
 export default function ProvPanel() {
     const {user, isLoaded} = useUser();
@@ -17,8 +17,11 @@ export default function ProvPanel() {
     const [msgDel, setmsgDel] = useState('');
     const [msgAdd, setmsgAdd] = useState('');
 
+    const { getToken } = useAuth();
+
     async function addService() {
         try {
+            const token = await getToken();
             const imgRegex = /\.(jpeg|jpg|gif|png|webp|avif|svg)(\?.*)?$/i;
             const isImgValid = imgRegex.test(img);
 
@@ -39,12 +42,16 @@ export default function ProvPanel() {
                 return;
             }
 
-            const resp = await axios.post('http://localhost:5050/api/provider/add_service', {
+            const resp = await axios.post(`${process.env.REACT_APP_API_URL}/api/provider/add_service`, {
                 'email': user.primaryEmailAddress.emailAddress,
                 'service': service,
                 'details': details,
                 'price': price ,
                 'img_url': img
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
 
             if(resp.data.message === 'existential conflict') {
@@ -61,6 +68,8 @@ export default function ProvPanel() {
             setPrice(0);
             setImg('');
 
+            setmsgAdd('Service sucessfully added...');
+
 
             setTimeout(() => {
                 setmsgAdd('');
@@ -73,6 +82,8 @@ export default function ProvPanel() {
 
     async function deleteService(e) {
         try {
+            const token = await getToken();
+
             if(delService.length === 0) {
                 setmsgDel('Please select a service');
 
@@ -82,11 +93,15 @@ export default function ProvPanel() {
                 return;
             }
 
-            let resp = await axios.delete('http://localhost:5050/api/provider/remove_service', { 
+            let resp = await axios.delete(`${process.env.REACT_APP_API_URL}/api/provider/remove_service`, { 
                 params: {
                     'email': user.primaryEmailAddress.emailAddress,
                     'service_name': delService,
+                }, 
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
+                
             });
             resp = resp.data.message;
             if(resp === 'order exists') {
@@ -115,9 +130,14 @@ export default function ProvPanel() {
     
     useEffect(() => {
         const renderProvServices = async () => {
-            let services = await axios.get('http://localhost:5050/api/provider/provider_services', {
+            const token = await getToken();
+
+            let services = await axios.get(`${process.env.REACT_APP_API_URL}/api/provider/provider_services`, {
                 params: {
                     'email': user.primaryEmailAddress.emailAddress
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
             });
             services = services.data.data;
@@ -126,7 +146,7 @@ export default function ProvPanel() {
         setTimeout(() => {
             renderProvServices();
         }, 1000);
-    }, [user, isLoaded, delService])
+    }, [user, isLoaded, delService, getToken])
 
     return (
         <div className={styles_page.page_background}>
