@@ -155,16 +155,6 @@ Cart state is persisted using localStorage.
 
 ---
 
-## Resume Highlights
-
-- Implemented role-based access control
-- Integrated Stripe payment flow
-- Used JWT authentication with protected API routes
-- Built persistent cart state using Redux + localStorage
-- Designed provider dashboard with CRUD operations
-
----
-
 ## Future Improvements
 
 - Service search & filtering
